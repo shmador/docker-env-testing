@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set the date value
-        run: echo "IMAGE_NAME=shmador/test-image:$(date +%s)" >> $GITHUB_ENV
+        run: echo "IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/test-image:$(date +%s)" >> $GITHUB_ENV
       - name: Build the Docker image
         run: docker build -t ${{ env.IMAGE_NAME }} .
       - name: Output DATE for next job
