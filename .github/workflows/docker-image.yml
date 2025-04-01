@@ -19,7 +19,7 @@ jobs:
     - name: Push the image
       run: docker push $IMAGE_NAME
     - name: Update the latest.txt file
-      run: echo $IMAGE_NAME > latest.txt
+      run: echo $IMAGE_NAME > latest/latest.txt
     - name: Commit and push the changes
       run: |
         git config --global user.email "dorattar4@gmail.com"
