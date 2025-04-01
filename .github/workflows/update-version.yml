@@ -2,7 +2,7 @@ name: Update Version CI
 
 on:
   workflow_run:
-    workflows: [Docker Image CI]
+    workflows: [docker-image.yml]
     types: [completed]
 
 jobs:
