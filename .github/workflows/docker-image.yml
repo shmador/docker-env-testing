@@ -3,56 +3,16 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set the date value
-        run: echo "IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/test-image:$(date +%s)" >> $GITHUB_ENV
-          # - name: Build the Docker image
-        # run: docker build -t ${{ env.IMAGE_NAME }} .
-      - name: Output DATE for next job
-        id: step3
-        run: echo "IMAGE_NAME=${{ env.IMAGE_NAME }}" >> $GITHUB_OUTPUT
-          #- name: Log in to Docker Hub
-          # run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          #- name: Push the image
-        # run: docker push ${{ env.IMAGE_NAME }}
-      - name: Clone test-repo
-        run: |
-          git config --unset-all http.https://github.com/.extraheader
-          git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
-          git fetch --all  # Make sure all remote branches are fetched
-          git config set user.email "dorattar4@gmail.com"
-          git config set user.name "shmador"
-          git config set pull.rebase false
-          git checkout -b dor_docker origin/dor_docker  # Checkout from the remote branch if it exists
-          rm -r *
-          git add -A
-          git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
-
-      - name: Pull from dor_docker
-        run: |
-          git fetch origin dor_docker  # Explicitly fetch the dor_docker branch from origin
-          git checkout dor_docker  # Checkout the dor_docker branch
-          git pull origin dor_docker  # Pull the latest changes from dor_docker
-          git add -A
-          git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
-
-      - name: Add version file
-        run: |
-          echo ${{ env.IMAGE_NAME }} > latest_image.txt
-          git add latest_image.txt
-          git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
-
-      - name: Push to GitHub
-        run: git push --set-upstream origin dor_docker
-
-      - name: List remote branches
-        run: |
-          git branch -r
-
+  steps:
+  - uses: actions/checkout@v4
+  - name: Generate tag for the image
+    run: echo "IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/test-image:$(date +%s)" >> $GITHUB_ENV
+  - name: Build the Docker image
+    run: docker build -t $IMAGE_NAME .
+  - name: Log in to Docker Hub
+    run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+  - name: Push the image
+    run: docker push $IMAGE_NAME
