@@ -28,6 +28,7 @@ jobs:
         run: |
           git config --unset-all http.https://github.com/.extraheader 
           git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
+          git fetch --all
           git config set user.email "dorattar4@gmail.com"
           git config set user.name "shmador"
           git config set pull.rebase false
