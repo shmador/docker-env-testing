@@ -32,7 +32,7 @@ jobs:
       - name: Clone test-repo
         run: git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
       - name: Set branch
-        run: git checkout dor_docker
+        run: git checkout -b dor_docker
       - name: Add version file
         run: | 
           echo ${{ env.IMAGE_NAME }} > latest_image.txt
