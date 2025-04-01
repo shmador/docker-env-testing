@@ -33,11 +33,11 @@ jobs:
         run: git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
       - name: Set branch
         run: |
-          git checkout -b dor_actions
+          git checkout -b dor_docker
       - name: Add version file
         run: | 
           echo ${{ env.IMAGE_NAME }} > latest_image.txt
           git add latest_image.txt
           git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
       - name: Push to GitHub
-        run: git push --force --set-upstream https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_actions
+        run: git push --force --set-upstream https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_docker
