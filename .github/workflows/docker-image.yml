@@ -24,5 +24,6 @@ jobs:
       run: |
         git config --global user.email "dorattar4@gmail.com"
         git config --global user.name "shmador"
-        git commit -am "This is an automated version update commit, check latest.txt"
-        git push origin main
+        git add latest.txt
+        git commit -m "This is an automated version update commit, check latest.txt"
+        git pull origin main && git push origin main
