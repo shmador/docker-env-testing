@@ -7,7 +7,7 @@ on:
 
 jobs:
   push:
-  - name: Pushes to another repository
+    name: Pushes to another repository
     uses: cpina/github-action-push-to-another-repository@main
     env:
       API_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN }}
