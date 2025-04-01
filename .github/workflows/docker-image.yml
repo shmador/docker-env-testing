@@ -17,8 +17,11 @@ jobs:
     - name: Push the image
       run: docker push $IMAGE_NAME
     - name: Update the latest.txt file
-      run: | 
-        echo $IMAGE_NAME > latest.txt
+      run: echo $IMAGE_NAME > latest.txt
+    - name: Commit and push the changes
+      run: |
+        git config --global user.email "dorattar4@gmail.com"
+        git config --global user.name "shmador"
         git add latest.txt
-        git commit -m "This is a version update commit made by docker-file workflow"
+        git commit -m "This is a version update commit made by the docker-file workflow"
         git push origin main
