@@ -7,13 +7,15 @@ on:
 
 jobs:
   push:
-    name: Pushes to another repository
-    uses: cpina/github-action-push-to-another-repository@main
-    env:
-      API_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN }}
-    with:
-      source-directory: 'latest'
-      destination-github-username: 'shmador'
-      destination-repository-name: 'test-repo'
-      user-email: dorattar4@gmail.com
-      target-branch: dor_docker
+    runs-on: ubuntu-latest
+    steps:
+      name: Pushes to another repository
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN }}
+      with:
+        source-directory: 'latest'
+        destination-github-username: 'shmador'
+        destination-repository-name: 'test-repo'
+        user-email: dorattar4@gmail.com
+        target-branch: dor_docker
