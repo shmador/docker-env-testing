@@ -39,4 +39,4 @@ jobs:
           git add latest_image.txt
           git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
       - name: Push to GitHub
-        run: git push --set-upstream origin dor_docker
+        run: git push --set-upstream https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_docker
