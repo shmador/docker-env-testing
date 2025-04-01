@@ -29,17 +29,15 @@ jobs:
           git config --unset-all http.https://github.com/.extraheader 
           git config set user.email "dorattar4@gmail.com"
           git config set user.name "shmador"
-          git config pull.rebase false
       - name: Clone test-repo
         run: git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
       - name: Set branch
-        run: git checkout -b dor_docker
+        run: |
+          git checkout -b dor_actions
       - name: Add version file
         run: | 
           echo ${{ env.IMAGE_NAME }} > latest_image.txt
           git add latest_image.txt
           git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
-      - name: Pull current branch
-        run: git pull https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_docker
       - name: Push to GitHub
-        run: git push --set-upstream https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_docker
+        run: git push --force --set-upstream https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_actions
