@@ -33,7 +33,8 @@ jobs:
           git config set pull.rebase false
           git checkout -b dor_docker
           rm -r *
-          git pull https://{{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.gitdor_docker
+          git pull https://${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_docker
+          git add -A
           git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
       - name: Add version file
         run: | 
