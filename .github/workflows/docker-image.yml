@@ -34,7 +34,8 @@ jobs:
           git config set pull.rebase false
           git checkout -b dor_docker
           rm -r *
-          echo $(git remote -v)
+          git add -A
+          git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
       - name: Pull from dor_docker
         run: |
           git pull origin dor_docker
@@ -46,4 +47,4 @@ jobs:
           git add latest_image.txt
           git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
       - name: Push to GitHub
-        run: git push origin dor_docker
+        run: git push --set-upstream origin dor_docker
