@@ -31,6 +31,8 @@ jobs:
           git config set user.name "shmador"
       - name: Clone test-repo
         run: git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
+      - name: Fetch 
+        run: git fetch --unshallow https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git dor_docker
       - name: Set branch
         run: |
           git checkout -b dor_docker
