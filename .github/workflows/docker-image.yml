@@ -7,9 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,33 +22,33 @@ jobs:
           # run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           #- name: Push the image
         # run: docker push ${{ env.IMAGE_NAME }}
-        - name: Clone test-repo
-    run: |
-      git config --unset-all http.https://github.com/.extraheader
-      git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
-     git fetch --all  # Make sure all remote branches are fetched
-     git config set user.email "dorattar4@gmail.com"
-     git config set user.name "shmador"
-     git config set pull.rebase false
-     git checkout dor_docker  # Ensure we checkout the correct branch
-     rm -r *
-     git add -A
-     git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
+      - name: Clone test-repo
+        run: |
+          git config --unset-all http.https://github.com/.extraheader
+          git clone https://shmador:${{ secrets.ACCESS_TOKEN }}@github.com/shapi78/test-repo.git && cd test-repo
+          git fetch --all  # Make sure all remote branches are fetched
+          git config set user.email "dorattar4@gmail.com"
+          git config set user.name "shmador"
+          git config set pull.rebase false
+          git checkout dor_docker  # Ensure we checkout the correct branch
+          rm -r *
+          git add -A
+          git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
 
-  - name: Pull from dor_docker
-    run: |
-      git fetch origin  # Ensure all branches are up to date locally
-      git checkout dor_docker  # Ensure you are on the correct branch before pulling
-      git pull origin dor_docker  # Pull from the remote dor_docker branch
-      git add -A
-      git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
+      - name: Pull from dor_docker
+        run: |
+          git fetch origin  # Ensure all branches are up to date locally
+          git checkout dor_docker  # Ensure you are on the correct branch before pulling
+          git pull origin dor_docker  # Pull from the remote dor_docker branch
+          git add -A
+          git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
 
-  - name: Add version file
-    run: |
-      echo ${{ env.IMAGE_NAME }} > latest_image.txt
-      git add latest_image.txt
-      git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
+      - name: Add version file
+        run: |
+          echo ${{ env.IMAGE_NAME }} > latest_image.txt
+          git add latest_image.txt
+          git commit -m "Updated the latest_image.txt, from GitHub actions automation on another repository"
 
-  - name: Push to GitHub
-    run: git push --set-upstream origin dor_docker
+      - name: Push to GitHub
+        run: git push --set-upstream origin dor_docker
 
