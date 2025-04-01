@@ -9,8 +9,8 @@ jobs:
   push:
     runs-on: ubuntu-latest
     steps:
-      name: Pushes to another repository
-      uses: cpina/github-action-push-to-another-repository@main
+    - name: Pushes to another repository
+    - uses: cpina/github-action-push-to-another-repository@main
       env:
         API_TOKEN_GITHUB: ${{ secrets.ACCESS_TOKEN }}
       with:
