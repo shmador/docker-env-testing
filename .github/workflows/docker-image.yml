@@ -27,15 +27,20 @@ jobs:
         git add latest
         git commit -m "[skip ci]This is an automated version update commit, check latest.txt"
         git pull origin main && git push origin main
-    - name: Pushes to another repository
-      id: push_directory
-      uses: cpina/github-action-push-to-another-repository@main
+  copy-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Pushes test file
+      uses: dmnemec/copy_file_to_another_repo_action@main
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source-directory: 'latest'
-        destination-github-username: 'shmador'
-        destination-repository-name: 'test-repo'
-        user-email: dorattar4@gmail.com
-        target-branch: dor_docker
-
+        source_file: 'latest/latest.txt'
+        destination_repo: 'shapi78/test-repo'
+        user_email: 'dorattar4@gmail.com'
+        user_name: 'shmador'
+        commit_message: 'Automated commit made by GitHub Actions bot'
+        destination_branch: 'dor_docker'
